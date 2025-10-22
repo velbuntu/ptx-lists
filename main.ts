@@ -1,7 +1,7 @@
 /**
  * Custom blocks for list-like functionality inspired by Scratch.
  */
-//% weight=100 color=#FF5733 icon="\uf03a" block="Custom Lists"
+//% weight=100 color=#FF5733 icon="\uf03a" block="Better Lists"
 namespace CustomLists {
 
     /**
