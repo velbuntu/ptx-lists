@@ -1,8 +1,8 @@
 /**
  * Custom blocks for list-like functionality inspired by Scratch.
  */
-//% weight=100 color=#FF5733 icon="" block="Lists"
-namespace ScratchLists {
+//% weight=100 color=#FF5733 icon="\uf03a" block="Custom Lists"
+namespace CustomLists {
 
     /**
      * Adds an item to the end of a list.
@@ -10,7 +10,7 @@ namespace ScratchLists {
      * @param item The item to add, eg: "hello"
      */
     //% block="add %item to %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     export function addToList(item: any, list: any[]): void {
         list.push(item);
     }
@@ -21,7 +21,7 @@ namespace ScratchLists {
      * @param index The zero-based index of the item to remove, eg: 0
      */
     //% block="remove item at #%index of %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     //% index.min=0
     export function removeFromList(index: number, list: any[]): void {
         if (index >= 0 && index < list.length) {
@@ -34,7 +34,7 @@ namespace ScratchLists {
      * @param list The list to get the length of.
      */
     //% block="length of %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     export function listLength(list: any[]): number {
         return list.length;
     }
@@ -46,7 +46,7 @@ namespace ScratchLists {
      * @param item The item to insert, eg: "world"
      */
     //% block="insert %item at #%index of %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     //% index.min=0
     export function insertIntoList(item: any, index: number, list: any[]): void {
         if (index >= 0 && index <= list.length) {
@@ -61,7 +61,7 @@ namespace ScratchLists {
      * @param item The new item.
      */
     //% block="replace item at #%index of %list with %item"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     //% index.min=0
     export function replaceItemInList(index: number, list: any[], item: any): void {
         if (index >= 0 && index < list.length) {
@@ -75,7 +75,7 @@ namespace ScratchLists {
      * @param index The zero-based index of the item to get, eg: 0
      */
     //% block="item at #%index of %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     //% index.min=0
     export function getItemFromList(index: number, list: any[]): any {
         if (index >= 0 && index < list.length) {
@@ -90,7 +90,7 @@ namespace ScratchLists {
      * @param item The item to look for.
      */
     //% block="%list contains %item"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     export function listContains(list: any[], item: any): boolean {
         return list.indexOf(item) != -1;
     }
@@ -100,7 +100,7 @@ namespace ScratchLists {
      * @param list The list to clear.
      */
     //% block="delete all of %list"
-    //% list.shadow="variables_get" list.defl="myList"
+    //% list.shadow="variables_get" list.defl="list"
     export function deleteAllFromList(list: any[]): void {
         list.length = 0;
     }
