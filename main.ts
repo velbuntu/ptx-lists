@@ -1,115 +1,149 @@
 /**
- * Custom blocks for list-like functionality inspired by Scratch.
+ * M Lists Extension
  */
-//% weight=100 color=#FF5733 icon="\uf03a" block="Better Lists"
-namespace CustomLists {
+//% weight=100 color=#0fbc11 icon="\uf03a"
+namespace MLists {
+    let allLists: { [key: string]: string[] } = {};
+
+    /**
+     * Creates a new, empty list with the specified name.
+     * @param name The name of the new list.
+     */
+    //% block="Create list %name"
+    //% weight=100
+    export function createList(name: string): void {
+        allLists[name] = [];
+    }
 
     /**
      * Adds an item to the end of a list.
-     * @param list The list to add the item to.
-     * @param item The item to add, eg: "hello"
+     * @param name The name of the list.
+     * @param value The item to add.
      */
-    //% block="add %item to %list"
-    //% list.shadow="variables_get" list.defl="list"
-    //% weight=100
-    export function addToList(item: any, list: any[]): void {
-        list.push(item);
-    }
-
-    /**
-     * Inserts an item into a list at a specified index.
-     * @param list The list to insert the item into.
-     * @param item The item to insert, eg: "world"
-     * @param index The zero-based index at which to insert the item, eg: 0
-     */
-    //% block="in %list insert %item at #%index"
-    //% list.shadow="variables_get" list.defl="list"
-    //% index.min=0
+    //% block="add %value to %name"
     //% weight=90
-    export function insertIntoList(list: any[], item: any, index: number): void {
-        if (index >= 0 && index <= list.length) {
-            list.splice(index, 0, item);
+    export function addToList(name: string, value: any): void {
+        if (!allLists[name]) {
+            createList(name);
         }
+        allLists[name].push(value.toString());
     }
 
     /**
-     * Replaces an item in a list at a specified index.
-     * @param list The list to modify.
-     * @param index The zero-based index of the item to replace, eg: 0
-     * @param item The new item.
+     * Removes an item from a specified index in a list.
+     * @param name The name of the list.
+     * @param index The 1-based index of the item to remove.
      */
-    //% block="in %list replace item at #%index with %item"
-    //% list.shadow="variables_get" list.defl="list"
-    //% index.min=0
+    //% block="remove item %index of %name"
     //% weight=80
-    export function replaceItemInList(list: any[], index: number, item: any): void {
-        if (index >= 0 && index < list.length) {
-            list[index] = item;
-        }
-    }
-
-    /**
-     * Gets an item from a list at a specified index.
-     * @param list The list to get the item from.
-     * @param index The zero-based index of the item to get, eg: 0
-     */
-    //% block="item at #%index of %list"
-    //% list.shadow="variables_get" list.defl="list"
-    //% index.min=0
-    //% weight=70
-    export function getItemFromList(index: number, list: any[]): any {
-        if (index >= 0 && index < list.length) {
-            return list[index];
-        }
-        return undefined;
-    }
-
-    /**
-     * Removes an item from a list at a specified index (position).
-     * @param list The list to remove the item from.
-     * @param index The zero-based index of the item to remove, eg: 0
-     */
-    //% block="remove item at #%index of %list"
-    //% list.shadow="variables_get" list.defl="list"
-    //% index.min=0
-    //% weight=60
-    export function removeFromList(index: number, list: any[]): void {
-        if (index >= 0 && index < list.length) {
-            list.splice(index, 1);
+    //% index.min=1
+    export function removeFromList(name: string, index: number): void {
+        if (allLists[name] && index > 0 && index <= allLists[name].length) {
+            allLists[name].splice(index - 1, 1);
         }
     }
 
     /**
      * Returns the number of items in a list.
-     * @param list The list to get the length of.
+     * @param name The name of the list.
      */
-    //% block="length of %list"
-    //% list.shadow="variables_get" list.defl="list"
+    //% block="%name length"
+    //% weight=70
+    export function listLength(name: string): number {
+        if (allLists[name]) {
+            return allLists[name].length;
+        }
+        return 0;
+    }
+
+    /**
+     * Inserts an item at a specific position in a list.
+     * @param name The name of the list.
+     * @param index The 1-based index to insert at.
+     * @param value The item to insert.
+     */
+    //% block="insert %value at %index of %name"
+    //% weight=60
+    //% index.min=1
+    export function insertIntoList(name: string, index: number, value: any): void {
+        if (!allLists[name]) {
+            createList(name);
+        }
+        if (index > 0 && index <= allLists[name].length + 1) {
+            allLists[name].splice(index - 1, 0, value.toString());
+        }
+    }
+
+    /**
+     * Replaces an item at a specific index in a list.
+     * @param name The name of the list.
+     * @param index The 1-based index of the item to replace.
+     * @param value The new item.
+     */
+    //% block="replace item %index of %name with %value"
     //% weight=50
-    export function listLength(list: any[]): number {
-        return list.length;
+    //% index.min=1
+    export function replaceItem(name: string, index: number, value: any): void {
+        if (allLists[name] && index > 0 && index <= allLists[name].length) {
+            allLists[name][index - 1] = value.toString();
+        }
+    }
+
+    /**
+     * Gets an item from a specific index in a list.
+     * @param name The name of the list.
+     * @param index The 1-based index of the item to get.
+     */
+    //% block="get item %index of %name"
+    //% weight=40
+    //% index.min=1
+    export function getItem(name: string, index: number): string {
+        if (allLists[name] && index > 0 && index <= allLists[name].length) {
+            return allLists[name][index - 1];
+        }
+        return "";
     }
 
     /**
      * Checks if a list contains a specific item.
-     * @param list The list to check.
-     * @param item The item to look for.
+     * @param name The name of the list.
+     * @param value The item to check for.
      */
-    //% block="%list contains %item"
-    //% list.shadow="variables_get" list.defl="list"
-    //% weight=40
-    export function listContains(list: any[], item: any): boolean {
-        return list.indexOf(item) != -1;
+    //% block="%name contains %value"
+    //% weight=30
+    export function listContains(name: string, value: any): boolean {
+        if (allLists[name]) {
+            return allLists[name].indexOf(value.toString()) > -1;
+        }
+        return false;
     }
 
     /**
-     * Removes all items from a list.
-     * @param list The list to clear.
+     * Deletes all items from a list.
+     * @param name The name of the list.
      */
-    //% block="delete all of %list"
-    //% list.shadow="variables_get" list.defl="list"
-    //% weight=30
-    export function deleteAllFromList(list: any[]): void {
-        list.length = 0;
+    //% block="delete all of %name"
+    //% weight=20
+    export function clearList(name: string): void {
+        if (allLists[name]) {
+            allLists[name] = [];
+        }
+    }
+    
+    /**
+     * Displays the items of a list on the micro:bit screen.
+     * @param name The name of the list to show.
+     */
+    //% block="show list %name"
+    //% weight=10
+    export function showList(name: string): void {
+        if (allLists[name]) {
+            for (let item of allLists[name]) {
+                basic.showString(item);
+                basic.pause(200);
+            }
+        } else {
+            basic.showIcon(IconNames.Sad);
+        }
     }
 }
