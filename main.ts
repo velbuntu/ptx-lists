@@ -40,17 +40,18 @@ namespace CustomLists {
     }
 
     /**
-     * Inserts an item into a list at a specified index.
-     * @param list The list to insert the item into.
-     * @param index The zero-based index at which to insert the item, eg: 0
-     * @param item The item to insert, eg: "world"
+     * Replaces an item in a list at a specified index.
+     * @param list The list to modify.
+     * @param index The zero-based index of the item to replace, eg: 0
+     * @param item The new item.
      */
-    //% block="insert %item at #%index of %list"
+    //% block="in %list replace item at #%index with %item"
     //% list.shadow="variables_get" list.defl="list"
     //% index.min=0
-    export function insertIntoList(item: any, index: number, list: any[]): void {
-        if (index >= 0 && index <= list.length) {
-            list.insertAt(index, item);
+    //% weight=80
+    export function replaceItemInList(list: any[], index: number, item: any): void {
+        if (index >= 0 && index < list.length) {
+            list[index] = item;
         }
     }
 
