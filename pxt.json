@@ -1,6 +1,6 @@
 {
     "name": "pxt-scratch-lists",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "An extension to create and manage lists like in Scratch.",
     "license": "MIT",
     "dependencies": {
@@ -12,10 +12,6 @@
     ],
     "testFiles": [],
     "public": true,
-    "targetVersions": {
-        "target": "6.0.25",
-        "targetId": "microbit"
-    },
     "supportedTargets": [
         "microbit"
     ]
